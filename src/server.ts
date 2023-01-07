@@ -3,18 +3,22 @@ import config from './envConfig';
 const app: Application = express();
 import routes from './routes';
 import ErrorHandle from './middlewares/errorHandler';
+import morgan from 'morgan';
+// import bodyParser from 'body-parser';
+app.use(express.json())
+app.use(morgan("common"))
+// app.use(bodyParser.json())
 
-
-
-app.get('/', (request: Request, response: Response): void => {
+app.get('/', (_request: Request, response: Response): void => {
     response.json({
         message: "Hello From the Server"
     })
 })
 
 
-
 app.use('/api', routes)
+
+
 
 // #######################################################################
 // ###   Global Error For Wrong Routes               #####################

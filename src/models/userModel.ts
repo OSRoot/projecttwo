@@ -3,10 +3,7 @@ import { User } from '../types/userType';
 import * as bcrypt from 'bcrypt';
 import config from '../envConfig';
 
-const hashingPassword = (password: string): string => {
-    bcrypt.hashSync(password + config.pepper, +(config.salt as string));
-    return password;
-}
+
 // ########################################################################
 // ## 1- createUser (u: User)                                       #######
 // ## 2- getUser (id:string)                                        #######
@@ -29,7 +26,7 @@ export class UserClass {
                     VALUES
                     ($1, $2, $3) RETURNING id, email, username;`;
             // use hashing password
-            const _hash = hashingPassword(u.password);
+            const _hash = bcrypt.hashSync(u.password + config.pepper, +(config.salt as string));
             //  pass sql query to the database 
             const _result = await _connect.query(_sql, [u.email, u.username, _hash])
             //release
@@ -59,10 +56,10 @@ export class UserClass {
     async updateUser(u: User): Promise<User> {
         try {
             const _connect = await Client.connect();
-            const _sql = `UPDATE users SET email='($1)', username='($2)', password='($3)'
+            const _sql = `UPDATE users SET email=$1, username=$2, password=$3 WHERE id=($4)
                         RETURNING id, email, username;`;
-            const _hash = hashingPassword(u.password);
-            const _result = await _connect.query(_sql, [u.email, u.username, _hash]);
+            const _hash = bcrypt.hashSync(u.password + config.pepper, +(config.salt as string))
+            const _result = await _connect.query(_sql, [u.email, u.username, _hash, u.id]);
             _connect.release();
             return _result.rows[0]
 
