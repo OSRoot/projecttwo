@@ -110,11 +110,11 @@ export class UserClass {
     }
 
     // ## 7- authenticateUser (username: string, password: string)      #######
-    async authenticateUser(username: string, password: string): Promise<User | null> {
+    async authenticateUser(email: string, password: string): Promise<User | null> {
         try {
             const _connect = await Client.connect();
-            const _sql = `SELECT * FROM users WHERE username=($1);`;
-            const _result = await _connect.query(_sql, [username]);
+            const _sql = `SELECT password FROM users WHERE email=($1);`;
+            const _result = await _connect.query(_sql, [email]);
             if (_result.rows.length) {
                 const user = _result.rows[0];
                 if (bcrypt.compareSync(password + config.pepper, user.password)) {
@@ -125,7 +125,7 @@ export class UserClass {
             return null;
 
         } catch (error) {
-            throw new Error(`Unable to login user : ${username} : ${error}`)
+            throw new Error(`Unable to login user : ${email} : ${error}`)
         }
     }
 }

@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from "../types/userType";
 import { UserClass } from "../models/userModel";
+import jwt from 'jsonwebtoken';
 import config from '../envConfig';
-const aUser = new UserClass()
+
+const aUser = new UserClass();
+
 
 // Create a creator function
 export const creator = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -114,6 +117,34 @@ export const userDeleter = async (req: Request, res: Response, next: NextFunctio
                 INFO: "User Does not exist."
             })
         }
+    } catch (error) {
+        next(error)
+    }
+}
+// create authenticate function
+
+export const authenTicate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {
+            email,
+            password
+        } = req.body;
+        const authenticatingUser = await aUser.authenticateUser(email, password)
+        // make / generate token using jsonwebtoken
+        const token = jwt.sign({ authenticatingUser }, (config.secret_token as unknown) as string);
+
+        if (!authenticatingUser) {
+            return res.status(401).json({
+                INFO: "Error",
+                MESSAGE: "Incorrect username or password, 🙄Try Again🙄"
+            })
+        }
+        return res.status(200).json({
+            INFO: "✔ Done",
+            USER_DATA: authenticatingUser, token,
+            MESSAGE: "✔ Logged in Successfully ✔"
+        })
+
     } catch (error) {
         next(error)
     }

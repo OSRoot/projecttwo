@@ -11,4 +11,8 @@ usersRoute.route('/users/:id')
     .patch(controller.userUpdater)
     .delete(controller.userDeleter)
 
+// handle authentication 
+
+usersRoute.route('/login').post(controller.authenTicate)
+
 export default usersRoute;
