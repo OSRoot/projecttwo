@@ -6,11 +6,12 @@ import config from '../envConfig';
 
 // ########################################################################
 // ## 1- createUser (u: User)                                       #######
-// ## 2- getUser (id:string)                                        #######
-// ## 3- updateUser (id: string)                                    #######
-// ## 4- deleteUser (id:string)                                     #######
-// ## 5- getUsers ()                                                #######
-// ## 6- authenticateUser (username: string, password: string)      #######
+// ## 2- getUserById (id:string)                                    #######
+// ## 3- getUser (id?:string, username?:string)                     #######
+// ## 4- updateUser (id: string)                                    #######
+// ## 5- deleteUser (id:string)                                     #######
+// ## 6- getUsers ()                                                #######
+// ## 7- authenticateUser (username: string, password: string)      #######
 // ########################################################################
 
 
@@ -38,8 +39,8 @@ export class UserClass {
         }
     }
 
-    // ## 2- getUser (id:string)                                        #######
-    async getUser(id: string): Promise<User> {
+    // ## 2- getUserById (id:string)                                        #######
+    async getUserById(id: string): Promise<User> {
         try {
             const _connect = await Client.connect();
             const _sql = `SELECT id, email, username FROM users WHERE id=($1);`;
@@ -48,11 +49,28 @@ export class UserClass {
             return _result.rows[0];
 
         } catch (error) {
-            throw new Error(`Unable to get User: ${error}`)
+            throw new Error(`Unable to get User: Enter User ID:🤔 ${error} 🤔:Enter Correct User ID:🤔`)
         }
     }
 
-    // ## 3- updateUser (id: string)                                    #######
+
+    // ## 3- getUserByName (username:string)                                        #######
+    async getUserByName(username: string): Promise<User> {
+        try {
+            const _connect = await Client.connect();
+            const _sql = `SELECT id, email, username FROM users WHERE username=($1);`;
+            const _result = await _connect.query(_sql, [username]);
+            _connect.release();
+            return _result.rows[0];
+
+        } catch (error) {
+
+            throw new Error(`Unable to get User:  ${error} 🤔:Enter User username:🤔`)
+        }
+    }
+
+
+    // ## 4- updateUser (id: string)                                    #######
     async updateUser(u: User): Promise<User> {
         try {
             const _connect = await Client.connect();
@@ -68,7 +86,7 @@ export class UserClass {
         }
     }
 
-    // ## 4- deleteUser (id:string)                                     #######
+    // ## 5- deleteUser (id:string)                                     #######
     async deleteUser(id: string): Promise<User> {
         try {
             const _connect = await Client.connect();
@@ -82,7 +100,7 @@ export class UserClass {
             throw new Error(`Unable to delete user: ${error}`)
         }
     }
-    // ## 5- getUsers ()                                                #######
+    // ## 6- getUsers ()                                                #######
     async getUsers(): Promise<User[]> {
         const _connect = await Client.connect();
         const _sql = `SELECT id, email, username FROM users;`;
@@ -91,7 +109,7 @@ export class UserClass {
         return _result.rows;
     }
 
-    // ## 6- authenticateUser (username: string, password: string)      #######
+    // ## 7- authenticateUser (username: string, password: string)      #######
     async authenticateUser(username: string, password: string): Promise<User | null> {
         try {
             const _connect = await Client.connect();

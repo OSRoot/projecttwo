@@ -6,11 +6,7 @@ const ErrorHandle = (err: Error, _request: Request, response: Response, next: Ne
     const message = err.message || "⛔ Unexpected Error, Go Back";
     console.log(err)
     response.status(status).json({
-        status, message
+        status, message,
     })
-
-
 }
-
-
 export default ErrorHandle;
