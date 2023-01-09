@@ -1,6 +1,6 @@
 import { Router } from "express";
-import * as controller from '../../controllers/products';
-import { MostExpensive5 } from "../../controllers/dashboard";
+import * as controller from '../../handler/products';
+import { MostExpensive5 } from "../../handler/dashboard";
 
 const productsRoute = Router();
 productsRoute.route('/products')

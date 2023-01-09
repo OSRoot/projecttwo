@@ -1,4 +1,4 @@
-import Client from "./../client";
+import Client from "../client";
 import { User } from "../types/userType";
 import * as bcrypt from "bcrypt";
 import config from "../envConfig";

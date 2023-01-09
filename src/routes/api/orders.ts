@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import * as controller from '../../controllers/orders';
-import { myDashbordOrder, usersWithOrders, MostExpensive5 } from '../../controllers/dashboard';
+import * as controller from '../../handler/orders';
+import { myDashbordOrder, usersWithOrders, MostExpensive5 } from '../../handler/dashboard';
 import { checkTokenValidation } from '../../middlewares/authMiddle';
 const ordersRoute = Router();
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Order } from "../types/orderType";
 import orderProduct from "../types/orderProductsType";
-import { OrderClass } from "../models/orderModel";
+import { OrderClass } from "../model/orderModel";
 const anOrder = new OrderClass();
 
 export const createOrder = async (

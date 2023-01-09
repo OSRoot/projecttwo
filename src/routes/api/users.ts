@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as controller from '../../controllers/users';
+import * as controller from '../../handler/users';
 import { checkTokenValidation } from "../../middlewares/authMiddle";
 import dotenv from 'dotenv';
 dotenv.config();

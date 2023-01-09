@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../types/userType";
-import { UserClass } from "../models/userModel";
+import { UserClass } from "../model/userModel";
 import jwt from "jsonwebtoken";
 import config from "../envConfig";
 import dotenv from "dotenv";
@@ -9,9 +9,9 @@ dotenv.config();
 const aUser = new UserClass();
 
 // ###################################################################################
-// #### Create a creator function                                        #############
-// #### Create a creator function                                        #############
-// #### Create a creator function                                        #############
+// #### Create a creatorUser function                                        #############
+// #### Create a creatorUser function                                        #############
+// #### Create a creatorUser function                                        #############
 // ###################################################################################
 export const creator = async (
   req: Request,
