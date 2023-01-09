@@ -5,10 +5,10 @@ const productsRoute = Router();
 productsRoute.route('/products')
     .get(controller.getProducts)
     .post(controller.createProduct)
-    .patch(controller.updateProduct)
 
 productsRoute.route('/products/:id')
     .get(controller.getAproduct)
+    .patch(controller.updateProduct)
     .delete(controller.deleteProduct)
 
 

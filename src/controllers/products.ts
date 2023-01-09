@@ -37,7 +37,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 export const getAproduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id as string;
-        const productExists = await aProduct.show(id);
+        const productExists = await aProduct.show(+(id));
         if (productExists) {
             res.json({
                 INFO: "Done",
@@ -57,7 +57,7 @@ export const getAproduct = async (req: Request, res: Response, next: NextFunctio
 
 
 
-export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
+export const getProducts = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const allProduct = await aProduct.index();
         res.json({
@@ -79,6 +79,7 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
             name: req.body.name as string,
             price: +(req.body.price as string)
         }
+        const existProduct = await aProduct.show(+(req.body.id as unknown as string))
         if (product.id) {
             if (!product.name) {
                 res.json({
@@ -106,12 +107,12 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id as string
-        const productExists = await aProduct.show(id);
+        const productExists = await aProduct.show(+(id));
         if (productExists) {
             const deletedProduct = await aProduct.delete(id);
             res.json({
                 INFO: "Done",
-                DATA: { ...deleteProduct },
+                DATA: { ...deletedProduct },
                 MESSAGE: "A Product has been Deleted Successfully"
             });
         } else {

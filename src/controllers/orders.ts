@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Order } from '../types/orderType';
+import orderProduct from '../types/orderProductsType';
 import { OrderClass } from '../models/orderModel';
 const anOrder = new OrderClass();
 
@@ -7,8 +8,7 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
     try {
         const order: Order = {
             status: req.body.status as string,
-            user_id: +(req.body.user_id as string),
-            quantity: +(req.body.quantity as string)
+            user_id: +(req.body.user_id as string)
         }
         const existedOrder = await anOrder.getOrderByUserId(order.user_id);
         if (!existedOrder) {
@@ -51,7 +51,7 @@ export const getANorder = async (req: Request, res: Response, next: NextFunction
 }
 
 
-export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllOrders = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const allOrders = await anOrder.index();
         res.json({
@@ -70,7 +70,7 @@ export const updateOrder = async (req: Request, res: Response, next: NextFunctio
         const order: Order = {
             status: req.body.status as string,
             user_id: +(req.body.user_id as string),
-            quantity: +(req.body.quantity as string)
+
         }
         const id = +(req.body.id as string)
         const existOrder = await anOrder.show(id)
@@ -109,6 +109,25 @@ export const deleteOrder = async (req: Request, res: Response, next: NextFunctio
             })
         }
 
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export const addToOrder = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const orderToAdd: orderProduct = {
+            quantity: req.body.quantity,
+            product_id: req.body.product_id as string,
+            order_id: req.params.id as string
+        }
+        const addingProduct = await anOrder.addToOrderCart(orderToAdd.quantity, orderToAdd.order_id, orderToAdd.product_id);
+        res.json({
+            INFO: "Done",
+            DATA: { ...addingProduct },
+            MESSAGE: "A New Product added to cart Succesfully"
+        })
     } catch (error) {
         next(error)
     }
