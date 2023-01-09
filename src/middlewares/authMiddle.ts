@@ -1,20 +1,43 @@
-import express, { Request, Response, NextFunction } from 'express'
-import { UserClass } from "../models/userModel";
-import { User } from '../types/userType';
+import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken';
-const aUser = new UserClass();
+import Error from '../interfaces/errorInterface';
+import config from '../envConfig';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const authenTicate = async (req: Request, res: Response, next: NextFunction) => {
+const NextError = (next: NextFunction) => {
+    const err: Error = new Error(`Faild login: try Again`);
+    err.status = 401 // unauthorized
+    next(err)
+}
+
+export const checkTokenValidation = async (req: Request, _res: Response, next: NextFunction) => {
     try {
-        const user: User = {
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password
+        const secret: string = config.secret_token as unknown as string;
+        const auth_header = req.get('Authorization');
+        if (auth_header) {
+            const token_type = auth_header.split(" ")[0].toLowerCase();
+
+            const token = auth_header.split(" ")[1];
+            if (token && token_type) {
+                const verified = jwt.verify(token, secret);
+                if (verified) {
+                    next();
+                } else {
+                    // failed auth
+                    NextError(next)
+                }
+            } else {
+                // type not bearer
+                NextError(next)
+            }
+        } else {
+            // no token
+            NextError(next)
         }
-        const existUser = await aUser.getUserByName(user.username);
-
-
-    } catch (error) {
-        next(error)
+    } catch (err) {
+        console.log(`Catch Error`)
+        NextError(next)
     }
 }
+

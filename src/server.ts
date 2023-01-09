@@ -27,7 +27,7 @@ app.use('/api', routes)
 //                 ERROR MIDDLEWARE                  #####################
 // #######################################################################
 app.use(ErrorHandle);
-app.use((_req: Request, res: Response) => {
+app.use((_req: Request, res: Response): void => {
     // 404 status code (no found)
     res.status(404).json({
         INFO: "You seem to be Lost, Read my project documentation 😊"

@@ -9,22 +9,20 @@ const {
     POSTGRES_USER,
     POSTGRES_PASSWORD,
     ENV,
-    PEPPER,
     SALT_ROUNDS,
     BCRYPT_PASSWORD,
-    SECRET_TOKEN,
     SERVER_PORT,
+    TOKEN_SECRET,
 
-}= process.env
+} = process.env
 
 export default {
     host: POSTGRES_HOST,
-    database: ENV === "dev"? POSTGRES_DB:POSTGRES_DB_TEST,
-    user:POSTGRES_USER,
-    password:POSTGRES_PASSWORD,
-    pepper: PEPPER,
+    database: ENV === "dev" ? POSTGRES_DB : POSTGRES_DB_TEST,
+    user: POSTGRES_USER,
+    password: POSTGRES_PASSWORD,
     salt: SALT_ROUNDS,
-    bcrypt_password:BCRYPT_PASSWORD,
-    secret_token: SECRET_TOKEN,
-    server_port:SERVER_PORT
+    pepper: BCRYPT_PASSWORD,
+    secret_token: TOKEN_SECRET,
+    server_port: SERVER_PORT
 }
