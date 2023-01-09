@@ -4,7 +4,10 @@
   "description": "storefront endpoint api",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "jasmine": "jasmine",
+    "build":"npx tsc",
+    "test":"npx tsc && jasmine"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import config from './envConfig';
-const app: Application = express();
+export const app: Application = express();
 import routes from './routes';
 import ErrorHandle from './middlewares/errorHandler';
 import morgan from 'morgan';
