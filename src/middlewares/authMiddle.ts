@@ -8,6 +8,7 @@ dotenv.config();
 const NextError = (next: NextFunction) => {
   const err: Error = new Error(`Faild login: try Again`);
   err.status = 401; // unauthorized
+  err.message = "Invalid token or unauthorized request";
   next(err);
 };
 

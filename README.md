@@ -41,3 +41,32 @@ Your application must make use of the following libraries:
 ##### JWTs 
 - using jsonwebtoken to strict some resources from unauthorized users, using token validation as middleware
 
+###### Testing 
+- this project is provided with some tests on what follows:
+-   * the apis can be reached for specific actions
+-   * models are tested on spcific actions depending on the tokens
+
+
+#### the endpints with verbs
+//1- GET http://localhost/api/orders (token required)
+//2- POST http://localhost/api/orders   (token required)
+//3- GET http://localhost/api/orders/orders/:id (token required)
+//4- PATCH http://localhost/api/orders/orders/:id   (token required)
+//5- DELETE http://localhost/api/orders/orders/:id  (token required)
+//6- GET http://localhost/api/products_in_order (token required)
+//7- GET http://localhost/api/five_expensive
+//8- POST http://localhost/api/products_in_order    (token required)
+//9- GET http://localhost/api/users     (token required)
+//10- POST http://localhost/api/users   
+//11- GET http://localhost/api/users/:id
+//12- PATCH http://localhost/api/users/:id  (token required)
+//13- DELETE http://localhost/api/users/:id (token required)
+//14- POST http://localhost/api/login   
+//15- GET http://localhost/api/products 
+//16- POST http://localhost/api/products    (token required)
+//17- PATCH http://localhost/api/products/:id   (token required)
+//18- DELETE http://localhost/api/products/:id  (token required)
+//19- GET http://localhost/api/products/:id
+//20- GET http://localhost/api/five_expensive
+
+

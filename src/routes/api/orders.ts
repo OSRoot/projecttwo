@@ -15,9 +15,10 @@ ordersRoute.route('/orders/:id/products')
     .post(checkTokenValidation, controller.addToOrder);
 
 ordersRoute.route('/products_in_order')
-    .get(checkTokenValidation, myDashbordOrder);
+    .get(myDashbordOrder);
 ordersRoute.route('/users_with_orders')
     .get(checkTokenValidation, usersWithOrders)
 ordersRoute.route('/five_expensive')
     .get(MostExpensive5)
 export default ordersRoute;
+

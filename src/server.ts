@@ -4,9 +4,11 @@ export const app: Application = express();
 import routes from './routes';
 import ErrorHandle from './middlewares/errorHandler';
 import morgan from 'morgan';
+import helmet from "helmet";
 // import bodyParser from 'body-parser';
 app.use(express.json())
 app.use(morgan("common"))
+app.use(helmet())
 // app.use(bodyParser.json())
 
 app.get('/', (_request: Request, response: Response): void => {

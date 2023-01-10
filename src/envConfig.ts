@@ -24,5 +24,6 @@ export default {
     salt: SALT_ROUNDS,
     pepper: BCRYPT_PASSWORD,
     secret_token: TOKEN_SECRET,
-    server_port: SERVER_PORT
+    server_port: SERVER_PORT,
+    env: ENV
 }

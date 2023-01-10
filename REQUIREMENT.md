@@ -15,10 +15,14 @@ These are the notes from a meeting with the frontend developer that describe wha
 - create [token required]   POST http://localhost:7000/api/users
 - getuser or users [token required] GET http://localhost:7000/api/users or users/:id
 - update [token required]   POST http://localhost:7000/api/users/:id
+-                           PATCH http://localhost:7000/api/orders/:id
 - delete [token required]   DELETE http://localhost:7000/api/users/:id
 
 #### Orders
 - Current Order by user (args: user id)[token required] GET http://localhost:7000/api/orders or orders/:id
+- POST http://localhost:7000/api/orders // create an order
+- PATCH http://localhost:7000/api/orders/:id
+- DELETE http://localhost:7000/api/orders/:id
 
 ## Data Shapes
 #### Product

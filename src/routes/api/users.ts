@@ -5,10 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const usersRoute = Router();
 
-usersRoute.route('/users')
-    .post(controller.creator)
-    .get(checkTokenValidation
-        , controller.usersGetter);
+usersRoute.post('/users', controller.creator);
+usersRoute.get('/users', checkTokenValidation, controller.usersGetter);
 // the controller that use req.params
 usersRoute.route('/users/:id')
     .get(controller.userGetter)
@@ -20,3 +18,10 @@ usersRoute.route('/users/:id')
 usersRoute.route('/login').post(controller.authenTicate)
 
 export default usersRoute;
+
+//10- GET http://localhost/api/users
+//10- POST http://localhost/api/users
+//10- GET http://localhost/api/users/:id
+//10- PATCH http://localhost/api/users/:id
+//10- DELETE http://localhost/api/users/:id
+//10- POST http://localhost/api/login
