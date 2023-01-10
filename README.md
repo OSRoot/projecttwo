@@ -25,7 +25,18 @@ Your application must make use of the following libraries:
 -   => yarn dev // this starts nodemon inside the project
 -   => yarn format // uses prettier to format the code
 -   => yarn lint // uses eslint
+
+##############################################################
+##############################################################
+## package.json scripts
+
 -  ###### => yarn start // start the server and work
+-  ###### => yarn dev   // start nodemon
+-  ###### => yarn format // prettier
+-  ###### => yarn lint // eslint
+-  ###### => yarn test // npx tsc && jasmine
+##############################################################
+##############################################################
 ### List of packages werer mentioned above (Required Technologies)
 
 ###### Models 
